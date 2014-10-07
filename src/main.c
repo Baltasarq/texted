@@ -43,6 +43,7 @@ typedef struct {
 
 static void load_config_file(Conf *conf)
 {
+	char * data;
 	FILE *fp;
 	gchar *path;
 	gchar buf[BUFSIZ];
@@ -59,7 +60,19 @@ static void load_config_file(Conf *conf)
 	if (!fp)
 		return;
 
-	if (fgets(buf, sizeof(buf), fp)) {
+	while (fgets(buf, sizeof(buf), fp) != NULL) {
+		if ( data = strstr( buf, "width" ) != NULL ) {
+			conf->width = atoi(++data);
+
+			if ( conf->width < MinWidth ) {
+				conf->width = 250;
+			}
+		}
+		else
+		
+				
+
+		
 		num = g_strsplit(buf, "." , 3);
 		if ((atoi(num[1]) >= 8) && (atoi(num[2]) >= 0)) {
 			fgets(buf, sizeof(buf), fp);
@@ -258,12 +271,12 @@ static void parse_args(gint argc, gchar **argv, FileInfo *fi)
 #endif
 	
 	if (fi->charset 
-		&& (g_strcasecmp(fi->charset, get_default_charset()) != 0)
-		&& (g_strcasecmp(fi->charset, "UTF-8") != 0)) {
+		&& (g_ascii_strcasecmp(fi->charset, get_default_charset()) != 0)
+		&& (g_ascii_strcasecmp(fi->charset, "UTF-8") != 0)) {
 		encarray = get_encoding_items(get_encoding_code());
 		for (i = 0; i < ENCODING_MAX_ITEM_NUM; i++)
 			if (encarray->item[i])
-				if (g_strcasecmp(fi->charset, encarray->item[i]) == 0)
+				if (g_ascii_strcasecmp(fi->charset, encarray->item[i]) == 0)
 					break;
 		if (i == ENCODING_MAX_ITEM_NUM)
 			fi->charset_flag = TRUE;

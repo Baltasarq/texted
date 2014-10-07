@@ -35,4 +35,7 @@ typedef struct {
 MainWin *create_main_window(void);
 void set_main_window_title(bool modified);
 
+extern const size_t MinWidth;
+extern const size_t MinHeight;
+
 #endif /* _WINDOW_H */

@@ -18,6 +18,9 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
+const size_t MinWidth = 250;
+const size_t MinHeight = 100;
+
 #include "globals.h"
 /*
 static void cb_scroll_event(GtkAdjustment *adj, GtkWidget *view)
